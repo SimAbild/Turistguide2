@@ -34,10 +34,10 @@ public class TouristService {
     public ArrayList<TouristAttraction> updateAttraction(TouristAttraction touristAttraction) {
         return repository.updateAttraction(touristAttraction);
     }
-    public List<String> getAllCities(){
+    public ArrayList<String> getAllCities(){
         return repository.getAllCities();
     }
-    public List<String> getAllTags(){
+    public ArrayList<String> getAllTags(){
         return repository.getAllTags();
     }
 }

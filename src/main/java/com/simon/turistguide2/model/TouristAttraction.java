@@ -8,7 +8,7 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String city;
-    private List<String> tags;
+    private ArrayList<String> tags;
 
     public TouristAttraction(String name, String description, String city, ArrayList<String> tags) {
         this.name = name;
@@ -31,6 +31,14 @@ public class TouristAttraction {
 
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
     public List<String> getTags() {

@@ -41,7 +41,7 @@ public class TouristController {
     @GetMapping("/add")
     public String addAttraction(Model model) {
         TouristAttraction touristAttraction = new TouristAttraction();
-        model.addAttribute("addAttraction" , touristAttraction);
+        model.addAttribute("attraction" , touristAttraction);
         model.addAttribute("allCities", touristService.getAllCities());
         model.addAttribute("allTags", touristService.getAllTags());
         return "attraction-add-form";
@@ -49,7 +49,6 @@ public class TouristController {
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-
         return "redirect:/attraction/attractions";
     }
 

@@ -19,7 +19,7 @@ public class TouristRespository {
         populateTags();
     }
 
-    public List<String> getAllCities() {
+    public ArrayList<String> getAllCities() {
         return cities;
     }
 
