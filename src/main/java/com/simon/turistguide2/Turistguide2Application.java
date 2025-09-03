@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Turistguide2Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Turistguide2Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Turistguide2Application.class, args);
+    }
 
 }
