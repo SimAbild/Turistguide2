@@ -4,6 +4,7 @@ import com.simon.turistguide2.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class TouristRespository {
@@ -15,11 +16,26 @@ public class TouristRespository {
     }
 
     public void populateTouristAttractionList(){
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum"));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken"));
-        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov"));
-        touristAttractions.add(new TouristAttraction("Legoland","Leg godt"));
-        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land"));
+        ArrayList<String> tivoliTags = new ArrayList<>();
+        tivoliTags.add("sjov");
+        tivoliTags.add("familie");
+        ArrayList<String> bakkenTags = new ArrayList<>();
+        bakkenTags.add("sjov");
+        bakkenTags.add("bakken");
+        ArrayList<String> faarupTags = new ArrayList<>();
+        faarupTags.add("sjov");
+        faarupTags.add("faarup");
+        ArrayList<String> legolandTags = new ArrayList<>();
+        legolandTags.add("sjov");
+        legolandTags.add("legoland");
+        ArrayList<String> bonbonLandTags = new ArrayList<>();
+        bonbonLandTags.add("sjov");
+        bonbonLandTags.add("bonbonland");
+        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "kbh", tivoliTags));
+        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "klampenborg", bakkenTags));
+        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
+        touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
+        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "næstved", bonbonLandTags));
     }
 
     public ArrayList<TouristAttraction> getTouristAttractions() {

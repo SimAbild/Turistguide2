@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("Attractions")
+@RequestMapping("attraction")
 public class TouristController {
     private final TouristService touristService;
 
@@ -19,39 +19,48 @@ public class TouristController {
         this.touristService = touristService;
     }
 
-    @GetMapping()
+    @GetMapping("/attractions")
     public String getTouristAttractions(Model model){
         ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
         model.addAttribute("attractions",attractions);
         return "attractionList";
     }
 
-    @GetMapping("{name}")
-        public TouristAttraction getAttractionByName(@PathVariable String name){
+    @GetMapping("/{name}")
+        public String getAttractionByName(@PathVariable String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
-        if(touristAttraction == null){
-
-        }
-
+        model.addAttribute("attraction" , touristAttraction);
+        return "attractionList";
     }
 
-    @PostMapping("/add")
-    public TouristAttraction addAttraction(@RequestBody TouristAttraction touristAttraction) {
-        TouristAttraction newAttraction = touristService.addAttraction(touristAttraction);
-
+    @GetMapping("/{name}/tags")
+    public String attractionTag(@PathVariable String name, Model model){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
+        model.addAttribute("attraction", touristAttraction);
+        return "tags";
     }
 
+    @GetMapping("/add")
+    public String addAttraction(Model model) {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        model.addAttribute("addAttraction" , touristAttraction);
+        return "attraction-add-form";
+    }
+
+
+/*
     @PostMapping("/delete/{name}")
-    public ArrayList<TouristAttraction>>deleteAttraction(@PathVariable String name){
-        ArrayList<TouristAttraction> removedAttraction = touristService.deleteAttraction(name);
-        if(removedAttraction == null){
-
+    public String deleteAttraction(@PathVariable String name, Model model){
+        TouristAttraction attraction = touristService.deleteAttraction(name);
+        if(attraction == null){
+            return "attractionList";
         }
+        return "attractionList";
+    } */
 
-    }
-
+    /*
     @PostMapping("/update/")
     public ArrayList<TouristAttraction>> updateAttraction(@RequestBody TouristAttraction touristAttraction) {
         ArrayList<TouristAttraction> updatedAttractions = touristService.updateAttraction(touristAttraction);
-    }
+    } */
 }
