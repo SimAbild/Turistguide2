@@ -9,29 +9,56 @@ import java.util.List;
 @Repository
 public class TouristRespository {
     private final ArrayList<TouristAttraction> touristAttractions = new ArrayList<>();
+    private final ArrayList<String> cities = new ArrayList<>();
+    private final ArrayList<String> tags = new ArrayList<>();
 
 
     public TouristRespository(){
         populateTouristAttractionList();
+        populateCities();
+        populateTags();
+    }
+
+    public List<String> getAllCities() {
+        return cities;
+    }
+
+    public ArrayList<String> getAllTags() {
+        return tags;
+    }
+
+    public void populateTags(){
+        tags.add("børnevenlig");
+        tags.add("gratis");
+        tags.add("natur");
+        tags.add("museum");
+        tags.add("studierabat");
+
+    }
+
+    public void populateCities(){
+        cities.add("kbh");
+        cities.add("Aarhus");
+        cities.add("næstved");
     }
 
     public void populateTouristAttractionList(){
         ArrayList<String> tivoliTags = new ArrayList<>();
-        tivoliTags.add("sjov");
-        tivoliTags.add("familie");
+        tivoliTags.add("børnevenlig");
+        tivoliTags.add("tivoli");
         ArrayList<String> bakkenTags = new ArrayList<>();
-        bakkenTags.add("sjov");
-        bakkenTags.add("bakken");
+        bakkenTags.add("Bakken");
+        bakkenTags.add("Sjov");
         ArrayList<String> faarupTags = new ArrayList<>();
-        faarupTags.add("sjov");
-        faarupTags.add("faarup");
+        faarupTags.add("Faarup");
+        faarupTags.add("Ballade");
         ArrayList<String> legolandTags = new ArrayList<>();
-        legolandTags.add("sjov");
-        legolandTags.add("legoland");
+        legolandTags.add("Legoland");
+        legolandTags.add("Farver");
         ArrayList<String> bonbonLandTags = new ArrayList<>();
-        bonbonLandTags.add("sjov");
-        bonbonLandTags.add("bonbonland");
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "kbh", tivoliTags));
+        bonbonLandTags.add("Bonbon land");
+        bonbonLandTags.add("Hoppelig hop");
+        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "kbh",tivoliTags));
         touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "klampenborg", bakkenTags));
         touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
         touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
@@ -75,5 +102,4 @@ public class TouristRespository {
         }
         return touristAttractions;
     }
-
 }

@@ -2,8 +2,6 @@ package com.simon.turistguide2.controller;
 
 import com.simon.turistguide2.model.TouristAttraction;
 import com.simon.turistguide2.service.TouristService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +42,15 @@ public class TouristController {
     public String addAttraction(Model model) {
         TouristAttraction touristAttraction = new TouristAttraction();
         model.addAttribute("addAttraction" , touristAttraction);
+        model.addAttribute("allCities", touristService.getAllCities());
+        model.addAttribute("allTags", touristService.getAllTags());
         return "attraction-add-form";
+    }
+    @PostMapping("/save")
+    public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
+        touristService.addAttraction(touristAttraction);
+
+        return "redirect:/attraction/attractions";
     }
 
 
