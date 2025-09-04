@@ -1,12 +1,75 @@
 body {
-    background-color:  turquoise;
+    margin: 0px;
 }
-
-.table {
+.container {
     display: grid;
     grid-template-areas:
-    grid-template-columns: 1fr 3fr 1fr;
+    "header"
+    "content"
+    "footer";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
     gap: 5px;
-    height: 100%;
+}
+.container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0px;
+}
+.container > div.header {
+    position: relative;
+    grid-area: header;
+    text-align: center;
+    background-image: url("GettyImages-1587697699.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 375px;
     width: 100%;
+}
+.header-text-box {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 15px 40px;
+    border-radius: 8px;
+    max-width: 80%;
+    text-align: center;
+}
+.header-text-box h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+.container > div.content{
+    margin-top: 60px;
+    padding: 5px;
+}
+.content table{
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+.addAttraction{
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 10px;
+    text-align: left;
+}
+.footer {
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+    width: 100%;
+    position: fixed; /* altid i bunden */
+    bottom: 0;
+    left: 0;
+}
+.socials{
+    width: 45px;
+    height: auto;
+    display: block;
+    float: left;
+    margin-left: 5px;
 }

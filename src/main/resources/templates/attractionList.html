@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>Show Attractions</title>
     <link th:href="@{/main.css}" rel="stylesheet">
+    <link rel="icon" type="image/webp" th:href="@{/flag.webp}">
 </head>
 <body>
-<h1>Attractions</h1>
-
-
-<div class="table">
-
-    <table>
-
+<div class="container">
+    <div class="header">
+        <div class="header-text-box">
+<h1>Experience the best things <br> Denmark has to offer</h1>
+        </div>
+    </div>
+        <div class="content"><table>
         <tr th:if="${attractions.isEmpty()}">There are no attractions</tr>
         <tr th:if="${!attractions.isEmpty()}">
             <th>Name</th>
@@ -41,10 +42,18 @@
         </tr>
 
     </table>
-</div>
-
+<div class="addAttraction">
 <a th:href="@{/attraction/add}">
     <button>Add attraction</button>
 </a>
+        </div>
+        <div class="footer">
+    <footer>Kontakt info:<br>
+    <a href="https://github.com/SimAbild/turistguide.git" target="_blank">
+        <img th:src="@{/githublogo.png}" alt="github" class="socials"></a>
+    <a href="https://www.instagram.com/_ekdigital?igsh=ZWNzY3MxcGRhcHli" target="_blank">
+        <img th:src="@{/Instagram_icon.png}" alt="instagram" class="socials"></a>
+</footer>
+</div>
 </body>
 </html>
