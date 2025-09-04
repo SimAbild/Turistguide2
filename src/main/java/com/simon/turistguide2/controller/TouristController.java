@@ -46,26 +46,36 @@ public class TouristController {
         model.addAttribute("allTags", touristService.getAllTags());
         return "attraction-add-form";
     }
+
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
         return "redirect:/attraction/attractions";
     }
 
+    //Display the edit form
+    @GetMapping("/edit/{name}")
+    public String editAttraction(@PathVariable String name, Model model){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
 
-/*
+        model.addAttribute("attraction",touristAttraction);
+        model.addAttribute("allCities", touristService.getAllCities());
+        model.addAttribute("allTags", touristService.getAllTags());
+
+        return "attraction-edit-form";
+    }
+
+    @PostMapping("/update")
+    public String updateAttraction(@ModelAttribute TouristAttraction touristAttraction) {
+        touristService.updateAttraction(touristAttraction);
+        return "redirect:/attraction/attractions";
+    }
+
     @PostMapping("/delete/{name}")
-    public String deleteAttraction(@PathVariable String name, Model model){
-        TouristAttraction attraction = touristService.deleteAttraction(name);
-        if(attraction == null){
-            return "attractionList";
-        }
-        return "attractionList";
-    } */
+    public String deleteAttraction(@PathVariable String name){
+        touristService.deleteAttraction(name);
+        return "redirect:/attraction/attractions";
+    }
 
-    /*
-    @PostMapping("/update/")
-    public ArrayList<TouristAttraction>> updateAttraction(@RequestBody TouristAttraction touristAttraction) {
-        ArrayList<TouristAttraction> updatedAttractions = touristService.updateAttraction(touristAttraction);
-    } */
+
 }

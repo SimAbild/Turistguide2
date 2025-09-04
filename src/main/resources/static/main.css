@@ -1,3 +1,12 @@
 body {
-    background-color: gold;
+    background-color:  turquoise;
+}
+
+.table {
+    display: grid;
+    grid-template-areas:
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 5px;
+    height: 100%;
+    width: 100%;
 }

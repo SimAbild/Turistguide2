@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Repository
 public class TouristRespository {
     private final ArrayList<TouristAttraction> touristAttractions = new ArrayList<>();
@@ -28,41 +29,46 @@ public class TouristRespository {
     }
 
     public void populateTags(){
-        tags.add("børnevenlig");
-        tags.add("gratis");
-        tags.add("natur");
-        tags.add("museum");
-        tags.add("studierabat");
+        tags.add("Børnevenlig");
+        tags.add("Gratis");
+        tags.add("Natur");
+        tags.add("Museum");
+        tags.add("Studierabat");
 
     }
 
     public void populateCities(){
-        cities.add("kbh");
+        cities.add("København");
         cities.add("Aarhus");
-        cities.add("næstved");
+        cities.add("Næstved");
     }
 
     public void populateTouristAttractionList(){
         ArrayList<String> tivoliTags = new ArrayList<>();
-        tivoliTags.add("børnevenlig");
-        tivoliTags.add("tivoli");
+        tivoliTags.add("Børnevenlig");
+        tivoliTags.add("Tivoli");
+
         ArrayList<String> bakkenTags = new ArrayList<>();
         bakkenTags.add("Bakken");
         bakkenTags.add("Sjov");
+
         ArrayList<String> faarupTags = new ArrayList<>();
         faarupTags.add("Faarup");
         faarupTags.add("Ballade");
+
         ArrayList<String> legolandTags = new ArrayList<>();
         legolandTags.add("Legoland");
         legolandTags.add("Farver");
+
         ArrayList<String> bonbonLandTags = new ArrayList<>();
         bonbonLandTags.add("Bonbon land");
         bonbonLandTags.add("Hoppelig hop");
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "kbh",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "klampenborg", bakkenTags));
+
+        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags));
+        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags));
         touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
         touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
-        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "næstved", bonbonLandTags));
+        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags));
     }
 
     public ArrayList<TouristAttraction> getTouristAttractions() {
@@ -83,23 +89,28 @@ public class TouristRespository {
         return touristAttraction;
     }
 
-    public ArrayList<TouristAttraction> deleteAttraction(String name){
-        for (int i = 0; i < touristAttractions.size(); i++) {
-            if (touristAttractions.get(i).getName().equals(name)) {
-                touristAttractions.remove(i);
-                return touristAttractions;
+    public TouristAttraction deleteAttraction(String name){
 
-            }
-        }
-        return null;
+       TouristAttraction td = findAttractionByName(name);
+
+           for (int i = 0; i < touristAttractions.size(); i++){
+               if (td.getName().equals(touristAttractions.get(i).getName())){
+                   touristAttractions.remove(td);
+               }
+           }
+           return td;
     }
 
-    public ArrayList<TouristAttraction> updateAttraction(TouristAttraction touristAttraction) {
+
+    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
         for(TouristAttraction touristAttraction1 : touristAttractions){
             if(touristAttraction.getName().equals(touristAttraction1.getName())){
                 touristAttraction1.setDescription(touristAttraction.getDescription());
+                touristAttraction1.setCity(touristAttraction.getCity());
+                touristAttraction1.setTags(touristAttraction.getTags());
             }
         }
-        return touristAttractions;
+        return touristAttraction;
     }
+
 }

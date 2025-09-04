@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add attraction</title>
+    <title>Edit attraction</title>
 </head>
 <body>
-<h1>Add attraction</h1>
+<h1>Edit attraction</h1>
 
-<form action="#" th:action="@{/attraction/save}" th:object="${attraction}" method="post">
+<form action="#" th:action="@{/attraction/update}" th:object="${attraction}" method="post">
 
     <label>Name:</label>
-    <input type="text" th:field="*{name}">
+    <input type="text" th:field="*{name}" readonly>
 
     <br>
 
@@ -37,6 +37,8 @@
     <button type="submit">Save</button>
 
 </form>
-<a th:href="@{/attraction/attractions}"><button>Cancel</button></a>
+<a th:href="@{/attraction/attractions}">
+    <button>Cancel</button>
+</a>
 </body>
 </html>

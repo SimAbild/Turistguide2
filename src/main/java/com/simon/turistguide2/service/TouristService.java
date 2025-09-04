@@ -27,16 +27,19 @@ public class TouristService {
     public TouristAttraction addAttraction(TouristAttraction touristAttraction) {
         return repository.addAttraction(touristAttraction);
     }
-    public ArrayList<TouristAttraction> deleteAttraction(String name){
+
+   public TouristAttraction deleteAttraction(String name){
         return repository.deleteAttraction(name);
     }
 
-    public ArrayList<TouristAttraction> updateAttraction(TouristAttraction touristAttraction) {
+    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
         return repository.updateAttraction(touristAttraction);
     }
+
     public ArrayList<String> getAllCities(){
         return repository.getAllCities();
     }
+
     public ArrayList<String> getAllTags(){
         return repository.getAllTags();
     }

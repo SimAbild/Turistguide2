@@ -8,9 +8,9 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String city;
-    private ArrayList<String> tags;
+    private List<String> tags;
 
-    public TouristAttraction(String name, String description, String city, ArrayList<String> tags) {
+    public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -37,7 +37,7 @@ public class TouristAttraction {
         this.city = city;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
