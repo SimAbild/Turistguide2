@@ -6,10 +6,12 @@
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
-<h1>Attractions</h1>
+<div class="container">
+    <div class="header">
+<h1>Attractions</h1></div>
 
 
-
+<div class="menu">
     <table>
 
         <tr th:if="${attractions.isEmpty()}">There are no attractions</tr>
@@ -41,9 +43,15 @@
 
     </table>
 
-
 <a th:href="@{/attraction/add}">
     <button>Add attraction</button>
 </a>
+</div>
+    <div class="footer"><footer>Kontakt info:<br>
+<a href="http://github.com/SimAbild/Turistguide2.git">
+    <img src="25231.png" alt="github" class="socials"></a>
+</footer>
+</div>
+</div>
 </body>
 </html>

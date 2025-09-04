@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+    "header header"
+    "menu menu"
+    "footer footer";
+    grid-template-columns: 3fr 3fr;
+    gap: 5px;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 50px;
+}
+
+.container > div.header {
+    background-color: darkorange;
+    grid-area: header;
+    text-align: center;
+    height: 75px;
+    background-size: 470px;
+}
+
+.container > div.menu {
+    grid-area: menu;
+    background-color: #d3ec9b;
+    height: 300px;
+}
+
+.container > div.footer {
+    grid-area: footer;
+    background-color: aquamarine;
+    height: 30px;
+}
+
+h1 {
+    width: 100%;
+    height: 100%;
+}
+
+.socials {
+    width: 45px;
+    height: auto;
+    display: block;
+    float: left;
+    margin-left: 5px;
+}
