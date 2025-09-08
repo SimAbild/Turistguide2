@@ -64,11 +64,11 @@ public class TouristRespository {
         bonbonLandTags.add("Bonbon land");
         bonbonLandTags.add("Hoppelig hop");
 
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags));
-        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
-        touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
-        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags));
+        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags, 300));
+        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags, 100));
+        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags, 200));
+        touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags, 250));
+        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags, 150));
     }
 
     public ArrayList<TouristAttraction> getTouristAttractions() {
@@ -108,6 +108,7 @@ public class TouristRespository {
                 touristAttraction1.setDescription(touristAttraction.getDescription());
                 touristAttraction1.setCity(touristAttraction.getCity());
                 touristAttraction1.setTags(touristAttraction.getTags());
+                touristAttraction1.setEntryFee(touristAttraction.getEntryFee());
             }
         }
         return touristAttraction;

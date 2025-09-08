@@ -9,16 +9,26 @@ public class TouristAttraction {
     private String description;
     private String city;
     private List<String> tags;
+    private int entryFee;
 
-    public TouristAttraction(String name, String description, String city, List<String> tags) {
+    public TouristAttraction(String name, String description, String city, List<String> tags, int entryFee) {
         this.name = name;
         this.description = description;
         this.city = city;
         this.tags = tags;
+        this.entryFee = entryFee;
     }
 
     public TouristAttraction(){
 
+    }
+
+    public int getEntryFee(){
+        return entryFee;
+    }
+
+    public void setEntryFee(int entryFee){
+        this.entryFee = entryFee;
     }
 
     public String getName() {
