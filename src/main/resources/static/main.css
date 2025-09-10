@@ -1,22 +1,25 @@
 body {
-    margin: 0px;
+    margin: 0;
 }
+
 .container {
     display: grid;
     grid-template-areas:
     "header"
     "content"
     "footer";
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto;
     grid-template-columns: 1fr;
     min-height: 100vh;
     gap: 5px;
 }
+
 .container > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 0px;
+    background-color: white;
+    padding: 0;
 }
-.container > div.header {
+
+.header {
     position: relative;
     grid-area: header;
     text-align: center;
@@ -27,6 +30,7 @@ body {
     height: 375px;
     width: 100%;
 }
+
 .header-text-box {
     position: absolute;
     bottom: -40px;
@@ -38,35 +42,46 @@ body {
     max-width: 80%;
     text-align: center;
 }
+
 .header-text-box h1 {
     margin: 0 0 10px 0;
     font-size: 2rem;
 }
-.container > div.content{
+
+.content {
     margin-top: 60px;
     padding: 5px;
 }
-.content table{
+
+.content table {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
 }
-.addAttraction{
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.addAttraction {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
     padding-top: 10px;
     text-align: left;
 }
+
 .footer {
-    background-color: rgba(255,255,255,0.8);
+    background-color: white;
     padding: 10px;
     width: 100%;
-    position: fixed; /* altid i bunden */
     bottom: 0;
     left: 0;
 }
-.socials{
+
+.socials {
     width: 45px;
     height: auto;
     display: block;

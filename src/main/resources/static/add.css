@@ -1,0 +1,10 @@
+.checkbox-tags {
+    display: inline-block;
+}
+
+form label {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+
+}
