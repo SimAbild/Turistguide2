@@ -30,10 +30,17 @@ public class TouristRespository {
 
     public void populateTags(){
         tags.add("Børnevenlig");
-        tags.add("Gratis");
         tags.add("Natur");
         tags.add("Museum");
         tags.add("Studierabat");
+        tags.add("Dyr");
+        tags.add("Kultur");
+        tags.add("Forlystelser");
+        tags.add("Musik");
+        tags.add("Sjælland");
+        tags.add("Fyn");
+        tags.add("Jylland");
+        tags.add("Bonrholm");
 
     }
 
@@ -41,16 +48,25 @@ public class TouristRespository {
         cities.add("København");
         cities.add("Aarhus");
         cities.add("Næstved");
+        cities.add("Odense");
+        cities.add("Helsingør");
+        cities.add("Esbjerg");
+        cities.add("Køge");
+        cities.add("Roskilde");
+        cities.add("Rønne");
+        cities.add("Hellerup");
     }
 
     public void populateTouristAttractionList(){
         ArrayList<String> tivoliTags = new ArrayList<>();
         tivoliTags.add("Børnevenlig");
-        tivoliTags.add("Tivoli");
+        tivoliTags.add("Forlystelser");
+        tivoliTags.add("Musik");
 
-        ArrayList<String> bakkenTags = new ArrayList<>();
-        bakkenTags.add("Bakken");
-        bakkenTags.add("Sjov");
+        ArrayList<String> kbhZooTags = new ArrayList<>();
+        kbhZooTags.add("Dyr");
+        kbhZooTags.add("Natur");
+        kbhZooTags.add("Børnevenlig");
 
         ArrayList<String> faarupTags = new ArrayList<>();
         faarupTags.add("Faarup");
@@ -65,7 +81,7 @@ public class TouristRespository {
         bonbonLandTags.add("Hoppelig hop");
 
         touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags));
+        touristAttractions.add(new TouristAttraction("KBH Zoo","Zoologisk have ved Frederiksberg have", "København", kbhZooTags));
         touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
         touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
         touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags));

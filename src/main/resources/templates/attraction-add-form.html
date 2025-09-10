@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add attraction</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1>Add attraction</h1>
@@ -12,12 +13,12 @@
     <label>Name:</label>
     <input type="text" th:field="*{name}">
 
-    <br>
+    <br><br>
 
     <label>Description:</label>
     <input type="text" th:field="*{description}">
 
-    <br>
+    <br><br>
 
     <label>City:</label>
     <select th:field="*{city}">
@@ -25,18 +26,20 @@
         <option th:each="town : ${allCities}" th:value="${town}" th:text="${town}"></option>
     </select>
 
-    <br>
+    <br><br>
 
     <label>Tags:</label>
-    <div th:each="tag : ${allTags}">
+    <br><br>
+    <div th:each="tag : ${allTags}" class="checkbox-tags">
         <input type="checkbox" th:field="*{tags}" th:value="${tag}" th:text="${tag}"/>
     </div>
 
-    <br>
+    <br><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save</button> <button type="button" onclick="window.location.href='/attraction/attractions'">Cancel</button>
 
 </form>
+<br>
 <a th:href="@{/attraction/attractions}"><button>Cancel</button></a>
 </body>
 </html>

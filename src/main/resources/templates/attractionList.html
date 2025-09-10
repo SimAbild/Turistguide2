@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Attractions</h1></div>
+        <h1>TouristAttractions in Denmark</h1></div>
 
 
     <div class="menu">
@@ -19,6 +19,9 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>City</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
 
             <tr th:each="attraction: ${attractions}">
@@ -41,14 +44,16 @@
             </tr>
 
         </table>
-
+        <br>
         <a th:href="@{/attraction/add}">
             <button>Add attraction</button>
         </a>
     </div>
 
+    <div class="picture"></div>
+
     <div class="footer">
-        <footer>Kontakt info:<br>
+        <footer>Kontakt info:<br><br>
             <a href="http://github.com/SimAbild/Turistguide2.git">
                 <img th:src="@{/25231.png}" alt="github" class="socials"></a>
         </footer>

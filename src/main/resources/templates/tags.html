@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tags</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
 <h1 th:text="${attraction.name}"></h1>
@@ -11,7 +12,7 @@
         <td th:text="${tag}"></td>
     </tr>
 </table>
-
+<br>
 <a th:href="@{/attraction/attractions}"><button>Go Back</button></a>
 </body>
 </html>
