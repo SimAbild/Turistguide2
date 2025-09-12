@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: #d3ec9b;
+    height: 100%;
 }
 
 .checkbox-tags {
@@ -13,14 +14,19 @@ form label {
     text-align: left;
 }
 
+.addButton {
+    max-width: 612px;
+    margin: 0 auto;
+}
+
 .container {
     display: grid;
     grid-template-areas:
-    "header header"
-    "menu picture"
-    "footer footer";
-    grid-template-rows: auto 1fr auto;
-    grid-template-columns: 3fr 3fr;
+    "header"
+    "menu"
+    "footer";
+    grid-template-rows: auto;
+    grid-template-columns: 3fr;
     gap: 5px;
     background-color: black;
     height: 100%;
@@ -46,14 +52,14 @@ form label {
     background-color: white;
 }
 
-.container > div.picture {
-    background-image: url("ANG-Tivoli-Indgang.jpg");
+.menu table {
+    margin: 0 auto;
 }
+
 
 .container > div.footer {
     grid-area: footer;
-    background-color: #ed9556;
-    height: fit-content;
+    background-color: #d3ec9b;
 }
 
 h1 {
