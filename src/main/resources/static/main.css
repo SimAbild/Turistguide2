@@ -57,6 +57,7 @@ body {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
+    text-align: left;
 }
 
 table, th, td {
@@ -67,10 +68,8 @@ table, th, td {
 
 .addAttraction {
     max-width: 800px;
-    width: 100%;
     margin: 0 auto;
     padding-top: 10px;
-    text-align: left;
 }
 
 .footer {

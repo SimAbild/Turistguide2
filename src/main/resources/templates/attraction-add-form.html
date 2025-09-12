@@ -37,9 +37,7 @@
     <label>Tags:</label>
     <br><br>
     <div th:each="tag : ${allTags}" class="checkbox-tags">
-        <label>
             <input type="checkbox" th:field="*{tags}" th:value="${tag}" th:text="${tag}"/>
-        </label>
     </div>
 
     <br><br>
