@@ -40,7 +40,7 @@ public class TouristRespository {
     public void populateCities(){
         cities.add("København");
         cities.add("Aarhus");
-        cities.add("Næstved");
+        cities.add("Odense");
     }
 
     public void populateTouristAttractionList(){
@@ -64,11 +64,11 @@ public class TouristRespository {
         bonbonLandTags.add("Bonbon land");
         bonbonLandTags.add("Hoppelig hop");
 
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags));
-        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
-        touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
-        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags));
+        touristAttractions.add(new TouristAttraction("Tivoli","Amusement park and garden in central Copenhagen", "Copenhagen",tivoliTags));
+        touristAttractions.add(new TouristAttraction("Nyhavn","Iconic harbour in central Copenhagen", "Copenhagen", bakkenTags));
+        touristAttractions.add(new TouristAttraction("ARoS","One of Denmark's largest art collections", "Aarhus", faarupTags));
+        touristAttractions.add(new TouristAttraction("The Old Town Museum","Experience Danish history", "Aarhus", legolandTags));
+        touristAttractions.add(new TouristAttraction("H.C. Andersen's House","Enter the fairy tale", "Odense", bonbonLandTags));
     }
 
     public ArrayList<TouristAttraction> getTouristAttractions() {
