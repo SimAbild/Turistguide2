@@ -17,6 +17,11 @@ public class TouristController {
         this.touristService = touristService;
     }
 
+    @GetMapping()
+    public String getForside(){
+        return "forside";
+    }
+
     @GetMapping("/attractions")
     public String getTouristAttractions(Model model){
         ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
