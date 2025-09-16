@@ -29,6 +29,13 @@ public class TouristController {
         return "attractionList";
     }
 
+    @GetMapping("/adminpage")
+    public String getAdminPage(Model model){
+        ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
+        model.addAttribute("attractions",attractions);
+        return "Admin_attractionList";
+    }
+
     @GetMapping("/{name}")
         public String getAttractionByName(@PathVariable String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
@@ -55,7 +62,7 @@ public class TouristController {
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-        return "redirect:/attraction/attractions";
+        return "redirect:/attraction/adminpage";
     }
 
     //Display the edit form
@@ -73,13 +80,13 @@ public class TouristController {
     @PostMapping("/update")
     public String updateAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.updateAttraction(touristAttraction);
-        return "redirect:/attraction/attractions";
+        return "redirect:/attraction/adminpage";
     }
 
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name){
         touristService.deleteAttraction(name);
-        return "redirect:/attraction/attractions";
+        return "redirect:/attraction/adminpage";
     }
 
 

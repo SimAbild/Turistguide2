@@ -7,14 +7,12 @@
     <link rel="icon" type="image/webp" th:href="@{/flag.webp}">
 </head>
 <body>
-
 <div class="container">
     <div class="header">
         <div class="header-text-box">
             <h1>Experience the best things <br> Denmark has to offer</h1>
         </div>
     </div>
-
     <div class="content">
         <table>
             <tr th:if="${attractions.isEmpty()}">There are no attractions</tr>
@@ -22,27 +20,35 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>City</th>
-                <th>Tags</th>
             </tr>
 
             <tr th:each="attraction: ${attractions}">
                 <td th:text="${attraction.name}"></td>
                 <td th:text="${attraction.description}"></td>
                 <td th:text="${attraction.city}"></td>
-
-                <td><a th:href="@{/attraction/{name}/tags(name=${attraction.name})}">
-                    <button>Tags</button>
+                <td><a th:href="@{/attraction/edit/{name}(name=${attraction.name})}">
+                    <button>Edit</button>
                 </a></td>
 
+                <td>
+                    <form th:action="@{/attraction/delete/{name}(name=${attraction.name})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </table>
+
+        <div class="addAttraction">
+            <a th:href="@{/attraction/add}">
+                <button>Add attraction</button>
+            </a>
+        </div>
 
         <div class="frontpage-button">
             <a th:href="@{/attraction}">
                 <button>Frontpage</button>
             </a>
         </div>
-
     </div>
 
 
@@ -52,11 +58,8 @@
                 <img th:src="@{/githublogo.png}" alt="github" class="socials"></a>
             <a href="https://www.instagram.com/_ekdigital?igsh=ZWNzY3MxcGRhcHli" target="_blank">
                 <img th:src="@{/Instagram_icon.png}" alt="instagram" class="socials"></a>
-
         </footer>
     </div>
-
 </div>
-
 </body>
 </html>
