@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    background: #1f3a4d;
+    background: linear-gradient(133deg, rgba(31, 58, 77, 1) 0%, rgba(33, 130, 119, 1) 100%);
+    }
+
+.container {
+    display: grid;
+    grid-template-areas:
+    "header"
+    "content"
+    "footer";
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    gap: 5px;
+}
+
+.container > div {
+    padding: 0;
+}
+
+.header {
+    position: relative;
+    grid-area: header;
+    text-align: center;
+    background-image: url("dbb00bb9-0886-43a8-917a-40c139b28731.png");
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 375px;
+    width: 100%;
+}
+
+.header-text-box {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 40px;
+    border-radius: 8px;
+    max-width: 80%;
+    text-align: center;
+    background: linear-gradient(133deg, #20555d 0%, #206566 100%);
+}
+
+.header-text-box h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+    color: white;
+}
+
+.content {
+    margin-top: 60px;
+    padding: 5px;
+}
+
+.content table {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    color: white;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.addAttraction {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.footer {
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    color: white;
+}
+
+.socials {
+    width: 45px;
+    height: auto;
+    display: block;
+    float: left;
+    margin-left: 5px;
+}

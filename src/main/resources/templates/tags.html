@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Tags</title>
+    <link th:href="@{/tags.css}" rel="stylesheet">
+    <link rel="icon" type="image/webp" th:href="@{/flag.webp}">
 </head>
 <body>
-<h1 th:text="${attraction.name}"></h1>
+    <h1 th:text="'Tags for ' + ${attraction.name}"></h1>
+    <div class="content">
 <table>
     <tr th:each="tag: ${attraction.tags}">
         <td th:text="${tag}"></td>
@@ -13,5 +16,15 @@
 </table>
 
 <a th:href="@{/attraction/attractions}"><button>Go Back</button></a>
+    </div>
+
+    <img th:if="${attraction.name == 'Tivoli'}"
+         th:src="@{/amusement-park-7763859_1280.webp}"
+         class="attraction-img">
+
+    <img th:if="${attraction.name == 'Nyhavn'}"
+         th:src="@{/e5ceed1b-347a-43cc-bfba-f06eca974f47_rw_1920.jpg}"
+         class="attraction-img">
+
 </body>
 </html>

@@ -4,7 +4,6 @@ import com.simon.turistguide2.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Repository
@@ -29,46 +28,45 @@ public class TouristRespository {
     }
 
     public void populateTags(){
-        tags.add("Børnevenlig");
-        tags.add("Gratis");
-        tags.add("Natur");
+        tags.add("Family friendly");
+        tags.add("Free");
         tags.add("Museum");
-        tags.add("Studierabat");
+        tags.add("Student discount");
 
     }
 
     public void populateCities(){
-        cities.add("København");
+        cities.add("Copenhagen");
         cities.add("Aarhus");
-        cities.add("Næstved");
+        cities.add("Odense");
     }
 
     public void populateTouristAttractionList(){
         ArrayList<String> tivoliTags = new ArrayList<>();
-        tivoliTags.add("Børnevenlig");
-        tivoliTags.add("Tivoli");
+        tivoliTags.add("Family friendly");
 
-        ArrayList<String> bakkenTags = new ArrayList<>();
-        bakkenTags.add("Bakken");
-        bakkenTags.add("Sjov");
+        ArrayList<String> nyhavnTags = new ArrayList<>();
+        nyhavnTags.add("Family friendly");
+        nyhavnTags.add("Free");
 
-        ArrayList<String> faarupTags = new ArrayList<>();
-        faarupTags.add("Faarup");
-        faarupTags.add("Ballade");
+        ArrayList<String> aRoSTags = new ArrayList<>();
+        aRoSTags.add("Family friendly");
+        aRoSTags.add("Museum");
+        aRoSTags.add("Student discount");
 
-        ArrayList<String> legolandTags = new ArrayList<>();
-        legolandTags.add("Legoland");
-        legolandTags.add("Farver");
+        ArrayList<String> oldTownTags = new ArrayList<>();
+        oldTownTags.add("Museum");
+        oldTownTags.add("Family friendly");
 
-        ArrayList<String> bonbonLandTags = new ArrayList<>();
-        bonbonLandTags.add("Bonbon land");
-        bonbonLandTags.add("Hoppelig hop");
+        ArrayList<String> HCTags = new ArrayList<>();
+        HCTags.add("Museum");
+        HCTags.add("Family friendly");
 
-        touristAttractions.add(new TouristAttraction("Tivoli","Forlystelsespark i KBH centrum", "København",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Bakken","Der er altid noget om snakken, der er sjovt på Bakken", "Klampenborg", bakkenTags));
-        touristAttractions.add(new TouristAttraction("Faarup","Der er altid noget sjov, ude i en skov", "Aarhus", faarupTags));
-        touristAttractions.add(new TouristAttraction("Legoland","Leg godt", "Billund", legolandTags));
-        touristAttractions.add(new TouristAttraction("BonBon land","Der er skideskægt i BonBon land", "Næstved", bonbonLandTags));
+        touristAttractions.add(new TouristAttraction("Tivoli","Amusement park and garden in central Copenhagen", "Copenhagen",tivoliTags));
+        touristAttractions.add(new TouristAttraction("Nyhavn","Iconic harbour in central Copenhagen", "Copenhagen", nyhavnTags));
+        touristAttractions.add(new TouristAttraction("ARoS","One of Denmark's largest art collections", "Aarhus", aRoSTags));
+        touristAttractions.add(new TouristAttraction("The Old Town Museum","Experience Danish history", "Aarhus", oldTownTags));
+        touristAttractions.add(new TouristAttraction("H.C. Andersen's House","Enter the fairy tale", "Odense", HCTags));
     }
 
     public ArrayList<TouristAttraction> getTouristAttractions() {
