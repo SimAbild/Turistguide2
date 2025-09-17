@@ -2,6 +2,7 @@ package com.simon.turistguide2.controller;
 
 import com.simon.turistguide2.model.TouristAttraction;
 import com.simon.turistguide2.service.TouristService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,23 @@ public class TouristController {
 
     public TouristController(TouristService touristService){
         this.touristService = touristService;
+    }
+
+    @GetMapping("/login")
+        public String getLoginPage(){
+        return "login";
+        }
+
+    @PostMapping("/login")
+    public String doLogin(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpSession session) {
+        if ("admin".equals(username) && "admin".equals(password)) {
+            session.setAttribute("isAdmin", true);
+            return "redirect:/attraction/adminpage";
+        }
+        return "redirect:/attraction/login?error=true";
     }
 
     @GetMapping()
