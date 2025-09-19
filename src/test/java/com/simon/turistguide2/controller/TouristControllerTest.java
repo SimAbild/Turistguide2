@@ -10,10 +10,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.aot.hint.TypeReference.listOf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -73,22 +77,26 @@ class TouristControllerTest {
 
     @Test
     void addAttraction() throws Exception {
-        TouristAttraction touristAttraction = new TouristAttraction
-                ("Jensens Bøfhus", "bøfhus", "Copenhagen", asList("Free", "Student discount"));
-        when(touristService.addAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
-
-        mockMvc.perform(post("/attraction/save")
-                .param("name", "Jensens Bøfhus")
-                .param("description", "bøfhus")
-                .param("city", "Copenhagen")
-                .param("tags", "Free", "Family", "Student discount"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attraction/adminpage"));
-
+        mockMvc.perform(get("/attraction/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("attraction-add-form"));
     }
 
     @Test
-    void saveAttraction() {
+    void saveAttraction() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction
+                ("Jensens Bøfhus", "bøfhus", "Copenhagen", new ArrayList<>(List.of("Free")));
+        when(touristService.addAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
+
+        mockMvc.perform(post("/attraction/save")
+                        .param("name", "Jensens Bøfhus")
+                        .param("description", "bøfhus")
+                        .param("city", "Copenhagen")
+                        .param("tags", "Free"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attraction/adminpage"));
+
+        verify(touristService, times(1)).addAttraction(touristAttraction);
     }
 
     @Test
