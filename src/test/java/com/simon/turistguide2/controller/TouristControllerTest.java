@@ -47,7 +47,7 @@ class TouristControllerTest {
     }
 
     @Test
-    void doLogin() {
+    void doLogin() throws Exception {
     }
 
     @Test
@@ -72,7 +72,13 @@ class TouristControllerTest {
     }
 
     @Test
-    void attractionTag() {
+    void attractionTag() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        when(touristService.findAttractionByName("Bakken")).thenReturn(touristAttraction);
+
+        mockMvc.perform(get("/attraction/{name}/tags", "Bakken"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("tags"));
     }
 
     @Test
@@ -108,6 +114,14 @@ class TouristControllerTest {
     }
 
     @Test
-    void deleteAttraction() {
+    void deleteAttraction() throws Exception {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        when(touristService.deleteAttraction("Bakken")).thenReturn(touristAttraction);
+
+        mockMvc.perform(post("/attraction/delete/{name}", "Bakken"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attraction/adminpage"));
+
+        verify(touristService, times(1)).deleteAttraction("Bakken");
     }
 }
