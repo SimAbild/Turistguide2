@@ -51,7 +51,7 @@ public class TouristController {
     public String getAdminPage(Model model){
         ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
         model.addAttribute("attractions",attractions);
-        return "Admin_attractionList";
+        return "admin_attractionList";
     }
 
     @GetMapping("/{name}")
