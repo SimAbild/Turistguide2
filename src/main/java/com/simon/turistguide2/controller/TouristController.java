@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("attraction")
+@RequestMapping()
 public class TouristController {
     private final TouristService touristService;
 
