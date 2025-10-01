@@ -30,7 +30,7 @@
                 <td th:text="${attraction.description}"></td>
                 <td th:text="${attraction.city}"></td>
 
-                <td><a th:href="@{/attraction/{name}/tags(name=${attraction.name})}">
+                <td><a th:href="@{/{name}/tags(name=${attraction.name})}">
                     <button>Tags</button>
                 </a></td>
 
@@ -38,7 +38,7 @@
         </table>
 
         <div class="frontpage-button">
-            <a th:href="@{/attraction}">
+            <a th:href="@{/}">
                 <button>Frontpage</button>
             </a>
         </div>
