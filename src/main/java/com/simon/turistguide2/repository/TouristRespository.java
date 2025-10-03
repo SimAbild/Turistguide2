@@ -1,5 +1,7 @@
 package com.simon.turistguide2.repository;
 
+import com.simon.turistguide2.model.City;
+import com.simon.turistguide2.model.Tag;
 import com.simon.turistguide2.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,55 +11,103 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Repository
 public class TouristRespository {
     private final JdbcTemplate jdbcTemplate;
-
-    private final RowMapper<TouristAttraction> rowMapper = (rs, rowNum) -> {
+    //RowMapper interface-attributter, der tager et data-table og antallet af rækker der i.
+    //RowMapper attributterne konverterer indholdet af data i en række til et java objekt.
+    //En attribut for hver af vores tables
+    private final RowMapper<TouristAttraction> attractionRowMapper = (rs, rowNum) -> {
         TouristAttraction touristAttraction = new TouristAttraction();
-        touristAttraction.setName(rs.getString("attractionName"));
+        touristAttraction.setName(rs.getString("name"));
         touristAttraction.setDescription(rs.getString("description"));
         touristAttraction.setCityID(rs.getInt("cityID"));
         touristAttraction.setAttractionID(rs.getInt("attractionID"));
         return touristAttraction;
+    };
+    private final RowMapper<City> cityRowMapper = (rs, rowNum) -> {
+        City city = new City();
+        city.setCityID(rs.getInt("cityID"));
+        city.setName(rs.getString("name"));
+        return city;
+    };
+    private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> {
+        Tag tags = new Tag();
+        tags.setTagID(rs.getInt("tagID"));
+        tags.setName(rs.getString("name"));
+        tags.setAttractionID(rs.getInt("attractionID"));
+        return tags;
     };
 
     public TouristRespository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void createTableData() {
-
-        jdbcTemplate.execute("CREATE TABLE attractions (" +
-                "attractionID INT AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(100) NOT NULL, " +
-                "cityID INT, " +
-                "FOREIGN KEY (cityID) REFERENCES cities(cityID))" +
-                "description VARCHAR(1000) NOT NULL, ");
-    }
-    /*
-    public ArrayList<String> getAllCities() {
-
+    //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
+    public List<City> getAllCities() {
+        List<City> allCities = jdbcTemplate.query("SELECT * FROM cities", cityRowMapper);
+        return allCities;
     }
 
-    public ArrayList<String> getAllTags() {
-
+    //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
+    public List<Tag> getAllTags() {
+        List<Tag> allTags = jdbcTemplate.query("SELECT * FROM tags", tagRowMapper);
+        return allTags;
     }
-    */
 
+    //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
     public List<TouristAttraction> getTouristAttractions() {
-        List<TouristAttraction> touristAttractions = jdbcTemplate.query("SELECT * FROM attractions", rowMapper);
+        List<TouristAttraction> touristAttractions = jdbcTemplate.query("SELECT * FROM attractions", attractionRowMapper);
         return touristAttractions;
     }
 
+    //finder attraktion ved at angive et id og returnerer så en liste med kun ét element, som er attraktionen med det givene id.
     public List<TouristAttraction> findAttractionByID(int attractionID) {
         String sql = "SELECT * FROM attractions WHERE attractionID = ?";
-        return jdbcTemplate.query(sql, rowMapper, attractionID);
+        return jdbcTemplate.query(sql, attractionRowMapper, attractionID);
     }
+
+    //Tilføjer en attraktion til attraktions-tabelllen
+    public TouristAttraction addAttraction(String name, String description, int cityID) {
+        String sql = "INSERT INTO attractions (name, description, cityID) VALUES (?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setInt(3, cityID);
+            return ps;
+        }, keyHolder);
+
+        int attractionID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
+
+        if (attractionID != -1) {
+            return new TouristAttraction(attractionID, name, description, cityID);
+        } else {
+            throw new RuntimeException("Kunne ikke indsætte person");
+        }
+    }
+
+    /*
+    //Tilføjer tags til tags-tabelllen når man tilføjer en attraktion
+    public Tag addTag(List<Integer> tagIDs, TouristAttraction touristAttraction) {
+        String sql = "INSERT INTO tags (name, attractionID) VALUES (?, ?)";
+
+        for (int i = 0; i < tagIDs.size(); i++) {
+            return new Tag(tagIDs.get(i), )
+        }
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+            ps.setInt(2, attractionID);
+            return ps;
+        });
+    } */
 
 /*
     public TouristAttraction deleteAttraction(String name) {
@@ -82,26 +132,4 @@ public class TouristRespository {
         }
         return touristAttraction;
     }*/
-
-    public TouristAttraction addAttraction(String name, int cityID, String description) {
-        String sql = "INSERT INTO attractions (name, cityID, description) VALUES (?, ?, ?)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, name);
-            ps.setString(2, description);
-            ps.setInt(3, cityID);
-            return ps;
-        }, keyHolder);
-
-        int attractionID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
-
-        if (attractionID != -1) {
-            return new TouristAttraction(attractionID, name, description, cityID);
-        } else {
-            throw new RuntimeException("Kunne ikke indsætte person");
-        }
-    }
-
 }

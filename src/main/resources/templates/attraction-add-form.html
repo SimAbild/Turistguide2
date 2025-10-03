@@ -27,9 +27,11 @@
 
     <label>City:</label>
     <label>
-        <select th:field="*{city}">
+        <select th:field="*{cityID}">
             <option value="">--Please select--</option>
-            <option th:each="town : ${allCities}" th:value="${town}" th:text="${town}"></option>
+            <option th:each="city : ${allCities}"
+                    th:value="${city.cityID}"
+                    th:text="${city.name}"></option>
         </select>
     </label>
 
@@ -37,15 +39,19 @@
 
     <label>Tags:</label>
     <br><br>
+<!--
     <div th:each="tag : ${allTags}" class="checkbox-tags">
-            <input type="checkbox" th:field="*{tags}" th:value="${tag}" th:text="${tag}"/>
+        <label>
+            <input type="checkbox" name="tagIDs" th:value="${tag.tagID}"/>
+            <span th:text="${tag.name}"></span>
+        </label>
     </div>
-
+-->
     <br><br>
 
     <button type="submit">Save</button>
 
-    <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
+            <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
 
 </form>
 </body>
