@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("attraction")
+@RequestMapping()
 public class TouristController {
     private final TouristService touristService;
 
@@ -80,7 +80,7 @@ public class TouristController {
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-        return "redirect:/attraction/adminpage";
+        return "redirect:/adminpage";
     }
 
     //Display the edit form
@@ -98,13 +98,13 @@ public class TouristController {
     @PostMapping("/update")
     public String updateAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.updateAttraction(touristAttraction);
-        return "redirect:/attraction/adminpage";
+        return "redirect:/adminpage";
     }
 
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name){
         touristService.deleteAttraction(name);
-        return "redirect:/attraction/adminpage";
+        return "redirect:/adminpage";
     }
 
 

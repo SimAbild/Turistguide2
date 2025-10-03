@@ -9,7 +9,7 @@
 <body>
 <h1>Edit attraction</h1>
 
-<form action="#" th:action="@{/attraction/update}" th:object="${attraction}" method="post">
+<form action="#" th:action="@{/update}" th:object="${attraction}" method="post">
 
     <label>Name:</label>
     <input type="text" th:field="*{name}" readonly>
@@ -41,7 +41,7 @@
 
     <button type="submit">Save</button>
 
-    <button type="button" onclick="window.location.href='/attraction/adminpage'">Cancel</button>
+    <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
 
 </form>
 </body>
