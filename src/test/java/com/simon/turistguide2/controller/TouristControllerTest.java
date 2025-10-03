@@ -41,7 +41,7 @@ class TouristControllerTest {
 
     @Test
     void getLoginPage() throws Exception {
-        mockMvc.perform(get("/attraction/login"))
+        mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("login"));
     }
@@ -52,23 +52,23 @@ class TouristControllerTest {
 
     @Test
     void getForside() throws Exception {
-        mockMvc.perform(get("/attraction"))
+        mockMvc.perform(get(""))
                 .andExpect(status().isOk())
                 .andExpect(view().name("forside"));
     }
 
     @Test
     void getTouristAttractions() throws Exception {
-        mockMvc.perform(get("/attraction/attractions"))
+        mockMvc.perform(get("/attractions"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("attractionList"));
     }
 
     @Test
     void getAdminPage() throws Exception {
-        mockMvc.perform(get("/attraction/adminpage"))
+        mockMvc.perform(get("/adminpage"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("Admin_attractionList"));
+                .andExpect(view().name("admin_attractionList"));
     }
 
     @Test
@@ -76,14 +76,14 @@ class TouristControllerTest {
         TouristAttraction touristAttraction = new TouristAttraction();
         when(touristService.findAttractionByName("Bakken")).thenReturn(touristAttraction);
 
-        mockMvc.perform(get("/attraction/{name}/tags", "Bakken"))
+        mockMvc.perform(get("/{name}/tags", "Bakken"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("tags"));
     }
 
     @Test
     void addAttraction() throws Exception {
-        mockMvc.perform(get("/attraction/add"))
+        mockMvc.perform(get("/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("attraction-add-form"));
     }
@@ -94,13 +94,13 @@ class TouristControllerTest {
                 ("Jensens Bøfhus", "bøfhus", "Copenhagen", new ArrayList<>(List.of("Free")));
         when(touristService.addAttraction(any(TouristAttraction.class))).thenReturn(touristAttraction);
 
-        mockMvc.perform(post("/attraction/save")
+        mockMvc.perform(post("/save")
                         .param("name", "Jensens Bøfhus")
                         .param("description", "bøfhus")
                         .param("city", "Copenhagen")
                         .param("tags", "Free"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attraction/adminpage"));
+                .andExpect(view().name("redirect:/adminpage"));
 
         verify(touristService, times(1)).addAttraction(touristAttraction);
     }
@@ -118,9 +118,9 @@ class TouristControllerTest {
         TouristAttraction touristAttraction = new TouristAttraction();
         when(touristService.deleteAttraction("Bakken")).thenReturn(touristAttraction);
 
-        mockMvc.perform(post("/attraction/delete/{name}", "Bakken"))
+        mockMvc.perform(post("/delete/{name}", "Bakken"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/attraction/adminpage"));
+                .andExpect(view().name("redirect:/adminpage"));
 
         verify(touristService, times(1)).deleteAttraction("Bakken");
     }
