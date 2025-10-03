@@ -70,6 +70,16 @@ public class TouristRespository {
         return jdbcTemplate.query(sql, attractionRowMapper, attractionID);
     }
 
+    public List<City> findCityByID(int cityID) {
+        String sql = "SELECT * FROM cities WHERE cityID = ?";
+        return jdbcTemplate.query(sql, cityRowMapper,cityID);
+    }
+
+    public List<Tag> findTagByID(int tagID) {
+        String sql = "SELECT * FROM cities WHERE tagID = ?";
+        return jdbcTemplate.query(sql, tagRowMapper, tagID);
+    }
+
     //Tilføjer en attraktion til attraktions-tabelllen
     public TouristAttraction addAttraction(String name, String description, int cityID) {
         String sql = "INSERT INTO attractions (name, description, cityID) VALUES (?, ?, ?)";
