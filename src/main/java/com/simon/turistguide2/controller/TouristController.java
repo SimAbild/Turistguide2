@@ -30,9 +30,9 @@ public class TouristController {
             HttpSession session) {
         if ("admin".equals(username) && "admin".equals(password)) {
             session.setAttribute("isAdmin", true);
-            return "redirect:/attraction/adminpage";
+            return "redirect:/adminpage";
         }
-        return "redirect:/attraction/login?error=true";
+        return "redirect:/login?error=true";
     }
 
     @GetMapping()
