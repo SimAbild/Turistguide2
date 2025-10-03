@@ -1,114 +1,107 @@
 package com.simon.turistguide2.repository;
 
 import com.simon.turistguide2.model.TouristAttraction;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
 public class TouristRespository {
-    private final ArrayList<TouristAttraction> touristAttractions = new ArrayList<>();
-    private final ArrayList<String> cities = new ArrayList<>();
-    private final ArrayList<String> tags = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
 
+    private final RowMapper<TouristAttraction> rowMapper = (rs, rowNum) -> {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        touristAttraction.setName(rs.getString("attractionName"));
+        touristAttraction.setDescription(rs.getString("description"));
+        touristAttraction.setCityID(rs.getInt("cityID"));
+        touristAttraction.setAttractionID(rs.getInt("attractionID"));
+        return touristAttraction;
+    };
 
-    public TouristRespository(){
-        populateTouristAttractionList();
-        populateCities();
-        populateTags();
+    public TouristRespository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
+    public void createTableData() {
+
+        jdbcTemplate.execute("CREATE TABLE attractions (" +
+                "attractionID INT AUTO_INCREMENT PRIMARY KEY, " +
+                "name VARCHAR(100) NOT NULL, " +
+                "cityID INT, " +
+                "FOREIGN KEY (cityID) REFERENCES cities(cityID))" +
+                "description VARCHAR(1000) NOT NULL, ");
+    }
+    /*
     public ArrayList<String> getAllCities() {
-        return cities;
+
     }
 
     public ArrayList<String> getAllTags() {
-        return tags;
-    }
-
-    public void populateTags(){
-        tags.add("Family friendly");
-        tags.add("Free");
-        tags.add("Museum");
-        tags.add("Student discount");
 
     }
+    */
 
-    public void populateCities(){
-        cities.add("Copenhagen");
-        cities.add("Aarhus");
-        cities.add("Odense");
-    }
-
-    public void populateTouristAttractionList(){
-        ArrayList<String> tivoliTags = new ArrayList<>();
-        tivoliTags.add("Family friendly");
-
-        ArrayList<String> nyhavnTags = new ArrayList<>();
-        nyhavnTags.add("Family friendly");
-        nyhavnTags.add("Free");
-
-        ArrayList<String> aRoSTags = new ArrayList<>();
-        aRoSTags.add("Family friendly");
-        aRoSTags.add("Museum");
-        aRoSTags.add("Student discount");
-
-        ArrayList<String> oldTownTags = new ArrayList<>();
-        oldTownTags.add("Museum");
-        oldTownTags.add("Family friendly");
-
-        ArrayList<String> HCTags = new ArrayList<>();
-        HCTags.add("Museum");
-        HCTags.add("Family friendly");
-
-        touristAttractions.add(new TouristAttraction("Tivoli","Amusement park and garden in central Copenhagen", "Copenhagen",tivoliTags));
-        touristAttractions.add(new TouristAttraction("Nyhavn","Iconic harbour in central Copenhagen", "Copenhagen", nyhavnTags));
-        touristAttractions.add(new TouristAttraction("ARoS","One of Denmark's largest art collections", "Aarhus", aRoSTags));
-        touristAttractions.add(new TouristAttraction("The Old Town Museum","Experience Danish history", "Aarhus", oldTownTags));
-        touristAttractions.add(new TouristAttraction("H.C. Andersen's House","Enter the fairy tale", "Odense", HCTags));
-    }
-
-    public ArrayList<TouristAttraction> getTouristAttractions() {
+    public List<TouristAttraction> getTouristAttractions() {
+        List<TouristAttraction> touristAttractions = jdbcTemplate.query("SELECT * FROM attractions", rowMapper);
         return touristAttractions;
     }
 
-    public TouristAttraction findAttractionByName(String name){
-        for (TouristAttraction touristAttraction : touristAttractions){
-            if (touristAttraction.getName().equals(name)){
-                return touristAttraction;
+    public List<TouristAttraction> findAttractionByID(int attractionID) {
+        String sql = "SELECT * FROM attractions WHERE attractionID = ?";
+        return jdbcTemplate.query(sql, rowMapper, attractionID);
+    }
+
+/*
+    public TouristAttraction deleteAttraction(String name) {
+
+        TouristAttraction td = findAttractionByName(name);
+
+        for (int i = 0; i < touristAttractions.size(); i++) {
+            if (td.getName().equals(touristAttractions.get(i).getName())) {
+                touristAttractions.remove(td);
             }
         }
-        return null;
+        return td;
     }
-
-    public TouristAttraction addAttraction(TouristAttraction touristAttraction) {
-        touristAttractions.add(touristAttraction);
-        return touristAttraction;
-    }
-
-    public TouristAttraction deleteAttraction(String name){
-
-       TouristAttraction td = findAttractionByName(name);
-
-           for (int i = 0; i < touristAttractions.size(); i++){
-               if (td.getName().equals(touristAttractions.get(i).getName())){
-                   touristAttractions.remove(td);
-               }
-           }
-           return td;
-    }
-
 
     public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
-        for(TouristAttraction touristAttraction1 : touristAttractions){
-            if(touristAttraction.getName().equals(touristAttraction1.getName())){
+        for (TouristAttraction touristAttraction1 : touristAttractions) {
+            if (touristAttraction.getName().equals(touristAttraction1.getName())) {
                 touristAttraction1.setDescription(touristAttraction.getDescription());
                 touristAttraction1.setCity(touristAttraction.getCity());
                 touristAttraction1.setTags(touristAttraction.getTags());
             }
         }
         return touristAttraction;
+    }*/
+
+    public TouristAttraction addAttraction(String name, int cityID, String description) {
+        String sql = "INSERT INTO attractions (name, cityID, description) VALUES (?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setInt(3, cityID);
+            return ps;
+        }, keyHolder);
+
+        int attractionID = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
+
+        if (attractionID != -1) {
+            return new TouristAttraction(attractionID, name, description, cityID);
+        } else {
+            throw new RuntimeException("Kunne ikke indsætte person");
+        }
     }
 
 }

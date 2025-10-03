@@ -5,6 +5,7 @@ import com.simon.turistguide2.repository.TouristRespository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TouristService {
@@ -15,18 +16,18 @@ public class TouristService {
     }
 
 
-    public ArrayList<TouristAttraction> getTouristAttractions() {
+    public List<TouristAttraction> getTouristAttractions() {
         return repository.getTouristAttractions();
     }
 
-    public TouristAttraction findAttractionByName(String name){
-       return repository.findAttractionByName(name);
+    public List<TouristAttraction> findAttractionByName(int attractionID){
+       return repository.findAttractionByID(attractionID);
     }
 
-    public TouristAttraction addAttraction(TouristAttraction touristAttraction) {
-        return repository.addAttraction(touristAttraction);
+    public TouristAttraction addAttraction(String name, int cityID, String description) {
+        return repository.addAttraction(name, cityID, description);
     }
-
+/*
    public TouristAttraction deleteAttraction(String name){
         return repository.deleteAttraction(name);
     }
@@ -41,5 +42,5 @@ public class TouristService {
 
     public ArrayList<String> getAllTags(){
         return repository.getAllTags();
-    }
+    }*/
 }

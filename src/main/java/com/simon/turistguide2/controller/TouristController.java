@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -42,18 +43,18 @@ public class TouristController {
 
     @GetMapping("/attractions")
     public String getTouristAttractions(Model model){
-        ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
+        List<TouristAttraction> attractions = touristService.getTouristAttractions();
         model.addAttribute("attractions",attractions);
         return "attractionList";
     }
 
     @GetMapping("/adminpage")
     public String getAdminPage(Model model){
-        ArrayList<TouristAttraction> attractions = touristService.getTouristAttractions();
+        List<TouristAttraction> attractions = touristService.getTouristAttractions();
         model.addAttribute("attractions",attractions);
         return "admin_attractionList";
     }
-
+/*
     @GetMapping("/{name}")
         public String getAttractionByName(@PathVariable String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
@@ -67,22 +68,22 @@ public class TouristController {
         model.addAttribute("attraction", touristAttraction);
         return "tags";
     }
-
+*/
     @GetMapping("/add")
     public String addAttraction(Model model) {
         TouristAttraction touristAttraction = new TouristAttraction();
         model.addAttribute("attraction" , touristAttraction);
-        model.addAttribute("allCities", touristService.getAllCities());
-        model.addAttribute("allTags", touristService.getAllTags());
+       // model.addAttribute("allCities", touristService.getAllCities());
+       // model.addAttribute("allTags", touristService.getAllTags());
         return "attraction-add-form";
     }
 
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
-        touristService.addAttraction(touristAttraction);
+        touristService.addAttraction(touristAttraction.getName(), touristAttraction.getCityID(), touristAttraction.getDescription());
         return "redirect:/adminpage";
     }
-
+/*
     //Display the edit form
     @GetMapping("/edit/{name}")
     public String editAttraction(@PathVariable String name, Model model){
@@ -106,7 +107,5 @@ public class TouristController {
         touristService.deleteAttraction(name);
         return "redirect:/adminpage";
     }
-
-
-
+*/
 }

@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.Objects;
 
 public class TouristAttraction {
+    private int attractionID;
     private String name;
     private String description;
-    private String city;
-    private List<String> tags;
+    private int cityID;
 
-    public TouristAttraction(String name, String description, String city, List<String> tags) {
+
+    public TouristAttraction(int attractionID, String name, String description, int cityID) {
         this.name = name;
         this.description = description;
-        this.city = city;
-        this.tags = tags;
+        this.cityID = cityID;
+        this.attractionID = attractionID;
     }
 
     public TouristAttraction(){
-
     }
 
     public String getName() {
@@ -29,21 +29,14 @@ public class TouristAttraction {
         return description;
     }
 
-    public String getCity() {
-        return city;
+    public int getCityID() {
+        return cityID;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityID(int cityID) {
+        this.cityID = cityID;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -53,6 +46,10 @@ public class TouristAttraction {
         this.description = description;
     }
 
+    public void setAttractionID(int attractionID) {
+        this.attractionID = attractionID;
+    }
+/*
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -62,6 +59,6 @@ public class TouristAttraction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, city, tags);
-    }
+        return Objects.hash(name, description, cityID);
+    }*/
 }
