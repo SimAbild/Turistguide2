@@ -70,11 +70,13 @@ public class TouristRespository {
         return jdbcTemplate.query(sql, attractionRowMapper, attractionID);
     }
 
+    //finder city ved at angive et id og returnerer så en liste med kun ét element, som er den city med det givene id.
     public List<City> findCityByID(int cityID) {
         String sql = "SELECT * FROM cities WHERE cityID = ?";
         return jdbcTemplate.query(sql, cityRowMapper,cityID);
     }
 
+    //finder tag ved at angive et id og returnerer så en liste med kun ét element, som er det tag med det givene id.
     public List<Tag> findTagByID(int tagID) {
         String sql = "SELECT * FROM cities WHERE tagID = ?";
         return jdbcTemplate.query(sql, tagRowMapper, tagID);
