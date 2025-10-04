@@ -1,11 +1,16 @@
 package com.simon.turistguide2.model;
 
 
+import java.util.List;
+
 public class TouristAttraction {
     private int attractionID;
     private String name;
     private String description;
     private Integer cityID;
+    private String cityName;
+    private List<Tag> tags;
+
 
 
     public TouristAttraction(int attractionID, String name, String description, int cityID) {
@@ -32,6 +37,14 @@ public class TouristAttraction {
 
     public int getAttractionID() {
         return attractionID;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public void setCityID(int cityID) {

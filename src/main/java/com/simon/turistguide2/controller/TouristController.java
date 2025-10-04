@@ -18,11 +18,13 @@ public class TouristController {
         this.touristService = touristService;
     }
 
+    //viser login siden
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
     }
 
+    //går til admin siden efter succefuldt login
     @PostMapping("/login")
     public String doLogin(
             @RequestParam String username,
@@ -35,11 +37,13 @@ public class TouristController {
         return "redirect:/login?error=true";
     }
 
+    //viser forsiden
     @GetMapping()
     public String getForside() {
         return "forside";
     }
 
+    //viser siden med alle attraktioner
     @GetMapping("/attractions")
     public String getTouristAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getTouristAttractions();
@@ -47,6 +51,7 @@ public class TouristController {
         return "attractionList";
     }
 
+    //viser admin siden med alle attraktioner og funktioner
     @GetMapping("/adminpage")
     public String getAdminPage(Model model) {
         List<TouristAttraction> attractions = touristService.getTouristAttractions();
@@ -55,13 +60,7 @@ public class TouristController {
     }
 
     /*
-        @GetMapping("/{name}")
-            public String getAttractionByName(@PathVariable String name, Model model){
-            TouristAttraction touristAttraction = touristService.findAttractionByName(name);
-            model.addAttribute("attraction" , touristAttraction);
-            return "attractionList";
-        }
-
+    //viser siden med tags for en given attraktion
         @GetMapping("/{name}/tags")
         public String attractionTag(@PathVariable String name, Model model){
             TouristAttraction touristAttraction = touristService.findAttractionByName(name);
@@ -69,6 +68,7 @@ public class TouristController {
             return "tags";
         }
     */
+    //viser add formen
     @GetMapping("/add")
     public String addAttraction(Model model) {
         TouristAttraction touristAttraction = new TouristAttraction();
@@ -78,13 +78,14 @@ public class TouristController {
         return "attraction-add-form";
     }
 
+    //går til admin siden efter succefuldt tilføjelse af attraktion
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.addAttraction(touristAttraction.getName(), touristAttraction.getDescription(), touristAttraction.getCityID());
         return "redirect:/adminpage";
     }
 /*
-    //Display the edit form
+    //viser edit formen
     @GetMapping("/edit/{name}")
     public String editAttraction(@PathVariable String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
@@ -95,13 +96,14 @@ public class TouristController {
 
         return "attraction-edit-form";
     }
-
+    //går til admin siden efter succefuldt editering af attraktion
     @PostMapping("/update")
     public String updateAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.updateAttraction(touristAttraction);
         return "redirect:/adminpage";
     }
 
+    //går til admin siden efter succefuldt at have fjernet en attraktion
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name){
         touristService.deleteAttraction(name);

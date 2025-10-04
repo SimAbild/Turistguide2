@@ -28,7 +28,7 @@
             <tr th:each="attraction: ${attractions}">
                 <td th:text="${attraction.name}"></td>
                 <td th:text="${attraction.description}"></td>
-                <td th:text="${attraction.cityID}"></td>
+                <td th:text="${attraction.cityName}"></td>
 
                 <td><a th:href="@{/{name}/tags(name=${attraction.name})}">
                     <button>Tags</button>

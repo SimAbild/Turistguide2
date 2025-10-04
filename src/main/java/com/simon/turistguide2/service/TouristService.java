@@ -36,10 +36,6 @@ public class TouristService {
         return repository.addAttraction(name, description, cityID);
     }
 
-    /*
-    public List<Integer> addTags(List<Integer> tagIDs, TouristAttraction touristAttraction) {
-        return tagIDs;
-    } */
 /*
    public TouristAttraction deleteAttraction(String name){
         return repository.deleteAttraction(name);

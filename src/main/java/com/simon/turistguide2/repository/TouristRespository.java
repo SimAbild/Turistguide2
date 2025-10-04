@@ -4,6 +4,8 @@ import com.simon.turistguide2.model.City;
 import com.simon.turistguide2.model.Tag;
 import com.simon.turistguide2.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -26,6 +28,7 @@ public class TouristRespository {
         touristAttraction.setDescription(rs.getString("description"));
         touristAttraction.setCityID(rs.getInt("cityID"));
         touristAttraction.setAttractionID(rs.getInt("attractionID"));
+        touristAttraction.setCityName(rs.getString("cityName"));
         return touristAttraction;
     };
     private final RowMapper<City> cityRowMapper = (rs, rowNum) -> {
@@ -58,9 +61,21 @@ public class TouristRespository {
         return allTags;
     }
 
+
     //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
     public List<TouristAttraction> getTouristAttractions() {
-        List<TouristAttraction> touristAttractions = jdbcTemplate.query("SELECT * FROM attractions", attractionRowMapper);
+        String sql = """
+        SELECT
+        a.attractionID,
+        a.name,
+        a.description,
+        a.cityID,
+        c.name AS cityName
+        FROM attractions a
+        JOIN cities c ON a.cityID = c.cityID
+        """;
+
+        List<TouristAttraction> touristAttractions = jdbcTemplate.query(sql, attractionRowMapper);
         return touristAttractions;
     }
 
@@ -104,24 +119,9 @@ public class TouristRespository {
         }
     }
 
-    /*
-    //Tilføjer tags til tags-tabelllen når man tilføjer en attraktion
-    public Tag addTag(List<Integer> tagIDs, TouristAttraction touristAttraction) {
-        String sql = "INSERT INTO tags (name, attractionID) VALUES (?, ?)";
-
-        for (int i = 0; i < tagIDs.size(); i++) {
-            return new Tag(tagIDs.get(i), )
-        }
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, name);
-            ps.setInt(2, attractionID);
-            return ps;
-        });
-    } */
-
 /*
+
+//Fjerner attraktion
     public TouristAttraction deleteAttraction(String name) {
 
         TouristAttraction td = findAttractionByName(name);
@@ -134,6 +134,7 @@ public class TouristRespository {
         return td;
     }
 
+//Gemmer aendringer af attraktion
     public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
         for (TouristAttraction touristAttraction1 : touristAttractions) {
             if (touristAttraction.getName().equals(touristAttraction1.getName())) {
