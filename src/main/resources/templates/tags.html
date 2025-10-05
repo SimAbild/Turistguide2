@@ -7,24 +7,29 @@
     <link rel="icon" type="image/webp" th:href="@{/images/flag.webp}">
 </head>
 <body>
-    <h1 th:text="'Tags for ' + ${attraction.name}"></h1>
-    <div class="content">
-<table>
-    <tr th:each="tag: ${attraction.tags}">
-        <td th:text="${tag}"></td>
-    </tr>
-</table>
+<h1 th:text="'Tags for ' + ${attraction.name}"></h1>
+<div class="content">
+    <table>
+        <tr th:each="tag : ${attraction.tags}">
+            <td th:text="${tag.name}"></td>
+        </tr>
+    </table>
 
-<a th:href="@{/attractions}"><button>Go Back</button></a>
-    </div>
 
-    <img th:if="${attraction.name == 'Tivoli'}"
-         th:src="@{/images/amusement-park-7763859_1280.webp}"
-         class="attraction-img">
 
-    <img th:if="${attraction.name == 'Nyhavn'}"
-         th:src="@{/images/e5ceed1b-347a-43cc-bfba-f06eca974f47_rw_1920.jpg}"
-         class="attraction-img">
+    <a th:href="@{/attractions}">
+        <button>Go Back</button>
+    </a>
+</div>
+
+
+<img th:if="${attraction.name == 'Tivoli'}"
+     th:src="@{/images/amusement-park-7763859_1280.webp}"
+     class="attraction-img">
+
+<img th:if="${attraction.name == 'Nyhavn'}"
+     th:src="@{/images/e5ceed1b-347a-43cc-bfba-f06eca974f47_rw_1920.jpg}"
+     class="attraction-img">
 
 </body>
 </html>

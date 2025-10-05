@@ -31,17 +31,18 @@ public class TouristRespository {
         touristAttraction.setCityName(rs.getString("cityName"));
         return touristAttraction;
     };
+
     private final RowMapper<City> cityRowMapper = (rs, rowNum) -> {
         City city = new City();
         city.setCityID(rs.getInt("cityID"));
         city.setName(rs.getString("name"));
         return city;
     };
+
     private final RowMapper<Tag> tagRowMapper = (rs, rowNum) -> {
         Tag tags = new Tag();
         tags.setTagID(rs.getInt("tagID"));
         tags.setName(rs.getString("name"));
-        tags.setAttractionID(rs.getInt("attractionID"));
         return tags;
     };
 
@@ -56,10 +57,31 @@ public class TouristRespository {
     }
 
     //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
+
     public List<Tag> getAllTags() {
         List<Tag> allTags = jdbcTemplate.query("SELECT * FROM tags", tagRowMapper);
         return allTags;
     }
+
+
+    public List<Tag> getTagsForAttraction(int attractionID) {
+        String sql = """
+        SELECT t.tagID, t.name
+        FROM tags t
+        JOIN attraction_tags at ON t.tagID = at.tagID
+        WHERE at.attractionID = ?
+        """;
+        return jdbcTemplate.query(sql, tagRowMapper, attractionID);
+    }
+
+    //metoden tager relationerne mellem attractionID og TagID og kobler dem sammen
+    public void addTagsToAttraction(int attractionID, List<Integer> tagIDs) {
+        String sql = "INSERT INTO attraction_tags (attractionID, tagID) VALUES (?, ?)";
+        for (Integer tagID : tagIDs) {
+            jdbcTemplate.update(sql, attractionID, tagID);
+        }
+    }
+
 
 
     //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
@@ -80,10 +102,17 @@ public class TouristRespository {
     }
 
     //finder attraktion ved at angive et id og returnerer så en liste med kun ét element, som er attraktionen med det givene id.
-    public List<TouristAttraction> findAttractionByID(int attractionID) {
-        String sql = "SELECT * FROM attractions WHERE attractionID = ?";
-        return jdbcTemplate.query(sql, attractionRowMapper, attractionID);
+    public TouristAttraction findAttractionByID(int attractionID) {
+        String sql = """
+        SELECT a.attractionID, a.name, a.description, a.cityID, c.name AS cityName
+        FROM attractions a
+        JOIN cities c ON a.cityID = c.cityID
+        WHERE a.attractionID = ?
+        """;
+
+        return jdbcTemplate.queryForObject(sql, attractionRowMapper, attractionID);
     }
+
 
     //finder city ved at angive et id og returnerer så en liste med kun ét element, som er den city med det givene id.
     public List<City> findCityByID(int cityID) {
@@ -119,30 +148,44 @@ public class TouristRespository {
         }
     }
 
-/*
-
-//Fjerner attraktion
-    public TouristAttraction deleteAttraction(String name) {
-
-        TouristAttraction td = findAttractionByName(name);
-
-        for (int i = 0; i < touristAttractions.size(); i++) {
-            if (td.getName().equals(touristAttractions.get(i).getName())) {
-                touristAttractions.remove(td);
-            }
-        }
-        return td;
+    public void deleteAttractionByID(int id){
+        String sql = "DELETE FROM attractions WHERE attractionID = ?";
+        jdbcTemplate.update(sql, id);
     }
 
-//Gemmer aendringer af attraktion
-    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
-        for (TouristAttraction touristAttraction1 : touristAttractions) {
-            if (touristAttraction.getName().equals(touristAttraction1.getName())) {
-                touristAttraction1.setDescription(touristAttraction.getDescription());
-                touristAttraction1.setCity(touristAttraction.getCity());
-                touristAttraction1.setTags(touristAttraction.getTags());
+    //metode til at hente tagIDs for at kunne koble eksisterende tags på attraktioner
+    //til at kunne ændre dem senere hen
+    public List<Integer> getTagIDsForAttraction(int attractionID) {
+        String sql = "SELECT tagID FROM attraction_tags WHERE attractionID = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("tagID"), attractionID);
+    }
+
+
+    // Opdater attraction (uden tags)
+    public void updateAttraction(TouristAttraction attraction) {
+        String sql = "UPDATE attractions SET name = ?, description = ?, cityID = ? WHERE attractionID = ?";
+        jdbcTemplate.update(sql,
+                attraction.getName(),
+                attraction.getDescription(),
+                attraction.getCityID(),
+                attraction.getAttractionID());
+    }
+
+    // Først slet alle gamle tags, derefter indsæt de nye
+    public void updateAttractionTags(int attractionID, List<Integer> tagIDs) {
+        // Fjern alle gamle relationer
+        String deleteSql = "DELETE FROM attraction_tags WHERE attractionID = ?";
+        jdbcTemplate.update(deleteSql, attractionID);
+
+        // Tilføj nye hvis der er valgt nogen
+        if (tagIDs != null && !tagIDs.isEmpty()) {
+            String insertSql = "INSERT INTO attraction_tags (attractionID, tagID) VALUES (?, ?)";
+            for (Integer tagID : tagIDs) {
+                jdbcTemplate.update(insertSql, attractionID, tagID);
             }
         }
-        return touristAttraction;
-    }*/
+    }
+
+
+
 }

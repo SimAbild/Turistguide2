@@ -9,40 +9,36 @@
 <body>
 <h1>Edit attraction</h1>
 
-<form action="#" th:action="@{/update}" th:object="${attraction}" method="post">
+<form th:action="@{/update}" th:object="${attraction}" method="post">
+    <input type="hidden" th:field="*{attractionID}"/>
 
     <label>Name:</label>
-    <input type="text" th:field="*{name}" readonly>
-
-    <br><br>
+    <input type="text" th:field="*{name}"/>
 
     <label>Description:</label>
-    <input type="text" th:field="*{description}">
-
-    <br><br>
+    <input type="text" th:field="*{description}"/>
 
     <label>City:</label>
-    <select th:field="*{city}">
-        <option value="">--Please select--</option>
-        <option th:each="town : ${allCities}" th:value="${town}" th:text="${town}"></option>
+    <select th:field="*{cityID}">
+        <option th:each="town : ${allCities}"
+                th:value="${town.cityID}"
+                th:text="${town.name}">
+        </option>
     </select>
 
-    <br><br><br>
-
     <label>Tags:</label>
-
-    <br><br>
-
-    <div th:each="tag : ${allTags}" class="checkbox-tags">
-        <input type="checkbox" th:field="*{tags}" th:value="${tag}" th:text="${tag}"/>
+    <div th:each="tag : ${allTags}">
+        <input type="checkbox"
+               name="tagIDs"
+               th:value="${tag.tagID}"
+               th:checked="${selectedTagIDs.contains(tag.tagID)}"/>
+        <span th:text="${tag.name}"></span>
     </div>
 
-    <br><br>
-
     <button type="submit">Save</button>
-
     <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
-
 </form>
+
 </body>
 </html>
+

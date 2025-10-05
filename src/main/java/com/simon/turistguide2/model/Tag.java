@@ -3,13 +3,10 @@ package com.simon.turistguide2.model;
 public class Tag {
     private int tagID;
     private String name;
-    private Integer attractionID;
 
-    public Tag(int tagID, String name, int attractionID) {
+    public Tag(int tagID, String name) {
         this.tagID = tagID;
         this.name = name;
-        this.attractionID = attractionID;
-
     }
 
     public Tag() {
@@ -32,11 +29,4 @@ public class Tag {
         this.tagID = tagID;
     }
 
-    public Integer getAttractionID() {
-        return attractionID;
-    }
-
-    public void setAttractionID(int attractionID){
-        this.attractionID = attractionID;
-    }
 }

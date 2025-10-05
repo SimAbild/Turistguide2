@@ -28,21 +28,36 @@ public class TouristService {
         return repository.getAllTags();
     }
 
-    public List<TouristAttraction> findAttractionByName(int attractionID){
-       return repository.findAttractionByID(attractionID);
+    public List<Tag> getTagsForAttraction(int attractionID) {
+        return repository.getTagsForAttraction(attractionID);
     }
+
+
+    public TouristAttraction findAttractionByID(int attractionID){
+        return repository.findAttractionByID(attractionID);
+    }
+
+
 
     public TouristAttraction addAttraction(String name, String description, int cityID) {
         return repository.addAttraction(name, description, cityID);
     }
 
-/*
-   public TouristAttraction deleteAttraction(String name){
-        return repository.deleteAttraction(name);
+    public void addTagsToAttraction(int attractionID, List<Integer> tagIDs) {
+        repository.addTagsToAttraction(attractionID, tagIDs);
     }
 
-    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
-        return repository.updateAttraction(touristAttraction);
+    public List<Integer> getTagIDsForAttraction(int attractionID) {
+        return repository.getTagIDsForAttraction(attractionID);
     }
-*/
+
+    public void updateAttraction(TouristAttraction attraction, List<Integer> tagIDs) {
+        repository.updateAttraction(attraction);                // Opdater attraction info
+        repository.updateAttractionTags(attraction.getAttractionID(), tagIDs); // Opdater tags
+    }
+
+    public void deleteAttractionByID(int id){
+        repository.deleteAttractionByID(id);
+    }
+
 }

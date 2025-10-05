@@ -38,15 +38,12 @@
     <br><br><br>
 
     <label>Tags:</label>
-    <br><br>
-<!--
     <div th:each="tag : ${allTags}" class="checkbox-tags">
         <label>
-            <input type="checkbox" name="tagIDs" th:value="${tag.tagID}"/>
+            <input type="checkbox" th:value="${tag.tagID}" name="tagIDs"/>
             <span th:text="${tag.name}"></span>
         </label>
     </div>
--->
     <br><br>
 
     <button type="submit">Save</button>

@@ -26,14 +26,15 @@
                 <td th:text="${attraction.name}"></td>
                 <td th:text="${attraction.description}"></td>
                 <td th:text="${attraction.cityName}"></td>
-                <td><a th:href="@{/edit/{name}(name=${attraction.name})}">
+                <td><a th:href="@{/edit/{id}(id=${attraction.attractionID})}">
                     <button>Edit</button>
                 </a></td>
 
                 <td>
-                    <form th:action="@{/delete/{name}(name=${attraction.name})}" method="post">
+                    <form th:action="@{/delete/{id}(id=${attraction.attractionID})}" method="post">
                         <button type="submit">Delete</button>
                     </form>
+
                 </td>
             </tr>
         </table>

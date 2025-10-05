@@ -1,5 +1,7 @@
 package com.simon.turistguide2.controller;
 
+import com.simon.turistguide2.model.City;
+import com.simon.turistguide2.model.Tag;
 import com.simon.turistguide2.model.TouristAttraction;
 import com.simon.turistguide2.service.TouristService;
 import jakarta.servlet.http.HttpSession;
@@ -59,15 +61,18 @@ public class TouristController {
         return "admin_attractionList";
     }
 
-    /*
-    //viser siden med tags for en given attraktion
-        @GetMapping("/{name}/tags")
-        public String attractionTag(@PathVariable String name, Model model){
-            TouristAttraction touristAttraction = touristService.findAttractionByName(name);
-            model.addAttribute("attraction", touristAttraction);
-            return "tags";
-        }
-    */
+    @GetMapping("/{id}/tags")
+    public String attractionTag(@PathVariable int id, Model model){
+        TouristAttraction attraction = (TouristAttraction) touristService.findAttractionByID(id);
+        List<Tag> tags = touristService.getTagsForAttraction(id);
+
+        attraction.setTags(tags); // kobler tags på objektet
+        model.addAttribute("attraction", attraction);
+
+        return "tags";
+    }
+
+
     //viser add formen
     @GetMapping("/add")
     public String addAttraction(Model model) {
@@ -78,12 +83,27 @@ public class TouristController {
         return "attraction-add-form";
     }
 
-    //går til admin siden efter succefuldt tilføjelse af attraktion
+
     @PostMapping("/save")
-    public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction) {
-        touristService.addAttraction(touristAttraction.getName(), touristAttraction.getDescription(), touristAttraction.getCityID());
+    public String saveAttraction(
+            @ModelAttribute TouristAttraction attraction,
+            @RequestParam(required = false) List<Integer> tagIDs) {
+
+        // Gem attraktionen først
+        TouristAttraction saved = touristService.addAttraction(
+                attraction.getName(),
+                attraction.getDescription(),
+                attraction.getCityID()
+        );
+
+        // Hvis der er valgt tags, tilføjer dem med
+        if (tagIDs != null && !tagIDs.isEmpty()) {
+            touristService.addTagsToAttraction(saved.getAttractionID(), tagIDs);
+        }
+
         return "redirect:/adminpage";
     }
+
 /*
     //viser edit formen
     @GetMapping("/edit/{name}")
@@ -103,11 +123,45 @@ public class TouristController {
         return "redirect:/adminpage";
     }
 
-    //går til admin siden efter succefuldt at have fjernet en attraktion
-    @PostMapping("/delete/{name}")
-    public String deleteAttraction(@PathVariable String name){
-        touristService.deleteAttraction(name);
+ */
+
+    @GetMapping("/edit/{id}")
+    public String editAttraction(@PathVariable int id, Model model) {
+        // Hent attraktion
+        TouristAttraction attraction = touristService.findAttractionByID(id);
+
+        // Hent alle byer
+        List<City> allCities = touristService.getAllCities();
+
+        // Hent alle tags
+        List<Tag> allTags = touristService.getAllTags();
+
+        // Hent attraktionens tags som ID’er
+        List<Integer> selectedTagIDs = touristService.getTagIDsForAttraction(id);
+
+        // Til Thymeleaf
+        model.addAttribute("attraction", attraction);
+        model.addAttribute("allCities", allCities);
+        model.addAttribute("allTags", allTags);
+        model.addAttribute("selectedTagIDs", selectedTagIDs);
+
+        return "attraction-edit-form";
+    }
+
+
+    @PostMapping("/update")
+    public String updateAttraction(@ModelAttribute TouristAttraction attraction,
+                                   @RequestParam(required = false) List<Integer> tagIDs) {
+        touristService.updateAttraction(attraction, tagIDs);
         return "redirect:/adminpage";
     }
-*/
+
+
+
+    @PostMapping("/delete/{id}")
+    public String deleteAttractionByID(@PathVariable int id){
+        touristService.deleteAttractionByID(id);
+        return "redirect:/adminpage";
+    }
+
 }

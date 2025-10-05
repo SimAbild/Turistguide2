@@ -47,6 +47,14 @@ public class TouristAttraction {
         this.cityName = cityName;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     public void setCityID(int cityID) {
         this.cityID = cityID;
     }
@@ -63,16 +71,5 @@ public class TouristAttraction {
     public void setAttractionID(int attractionID) {
         this.attractionID = attractionID;
     }
-/*
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        TouristAttraction that = (TouristAttraction) o;
-        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(city, that.city) && Objects.equals(tags, that.tags);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, cityID);
-    }*/
 }
