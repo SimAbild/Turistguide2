@@ -13,16 +13,16 @@
     <input type="hidden" th:field="*{attractionID}"/>
 
     <label>Name:</label>
-    <input type="text" th:field="*{name}"/>
+    <input type="text" th:field="*{name}" readonly/>
 
     <label>Description:</label>
     <input type="text" th:field="*{description}"/>
 
     <label>City:</label>
     <select th:field="*{cityID}">
-        <option th:each="town : ${allCities}"
-                th:value="${town.cityID}"
-                th:text="${town.name}">
+        <option th:each="city : ${allCities}"
+                th:value="${city.cityID}"
+                th:text="${city.name}">
         </option>
     </select>
 
