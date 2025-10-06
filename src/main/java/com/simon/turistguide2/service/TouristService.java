@@ -32,12 +32,9 @@ public class TouristService {
         return repository.getTagsForAttraction(attractionID);
     }
 
-
     public TouristAttraction findAttractionByID(int attractionID){
         return repository.findAttractionByID(attractionID);
     }
-
-
 
     public TouristAttraction addAttraction(String name, String description, int cityID) {
         return repository.addAttraction(name, description, cityID);
@@ -59,5 +56,4 @@ public class TouristService {
     public void deleteAttractionByID(int id){
         repository.deleteAttractionByID(id);
     }
-
 }

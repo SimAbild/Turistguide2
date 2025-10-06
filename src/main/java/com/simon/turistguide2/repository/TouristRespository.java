@@ -63,7 +63,6 @@ public class TouristRespository {
         return allTags;
     }
 
-
     public List<Tag> getTagsForAttraction(int attractionID) {
         String sql = """
         SELECT t.tagID, t.name
@@ -81,8 +80,6 @@ public class TouristRespository {
             jdbcTemplate.update(sql, attractionID, tagID);
         }
     }
-
-
 
     //query metoden læser fra hele tabellen og rowMapper attributten smider så et java objekt for hvert række ind i en liste.
     public List<TouristAttraction> getTouristAttractions() {
@@ -160,7 +157,6 @@ public class TouristRespository {
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("tagID"), attractionID);
     }
 
-
     // Opdater attraction (uden tags)
     public void updateAttraction(TouristAttraction attraction) {
         String sql = "UPDATE attractions SET name = ?, description = ?, cityID = ? WHERE attractionID = ?";
@@ -185,7 +181,4 @@ public class TouristRespository {
             }
         }
     }
-
-
-
 }

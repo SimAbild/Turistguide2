@@ -61,9 +61,10 @@ public class TouristController {
         return "admin_attractionList";
     }
 
+    //viser tags siden for en given attraktion
     @GetMapping("/{id}/tags")
     public String attractionTag(@PathVariable int id, Model model){
-        TouristAttraction attraction = (TouristAttraction) touristService.findAttractionByID(id);
+        TouristAttraction attraction = touristService.findAttractionByID(id);
         List<Tag> tags = touristService.getTagsForAttraction(id);
 
         attraction.setTags(tags); // kobler tags på objektet
@@ -71,7 +72,6 @@ public class TouristController {
 
         return "tags";
     }
-
 
     //viser add formen
     @GetMapping("/add")
@@ -83,12 +83,10 @@ public class TouristController {
         return "attraction-add-form";
     }
 
-
     @PostMapping("/save")
     public String saveAttraction(
             @ModelAttribute TouristAttraction attraction,
             @RequestParam(required = false) List<Integer> tagIDs) {
-
         // Gem attraktionen først
         TouristAttraction saved = touristService.addAttraction(
                 attraction.getName(),
@@ -103,27 +101,6 @@ public class TouristController {
 
         return "redirect:/adminpage";
     }
-
-/*
-    //viser edit formen
-    @GetMapping("/edit/{name}")
-    public String editAttraction(@PathVariable String name, Model model){
-        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
-
-        model.addAttribute("attraction",touristAttraction);
-        model.addAttribute("allCities", touristService.getAllCities());
-        model.addAttribute("allTags", touristService.getAllTags());
-
-        return "attraction-edit-form";
-    }
-    //går til admin siden efter succefuldt editering af attraktion
-    @PostMapping("/update")
-    public String updateAttraction(@ModelAttribute TouristAttraction touristAttraction) {
-        touristService.updateAttraction(touristAttraction);
-        return "redirect:/adminpage";
-    }
-
- */
 
     @GetMapping("/edit/{id}")
     public String editAttraction(@PathVariable int id, Model model) {
@@ -148,7 +125,6 @@ public class TouristController {
         return "attraction-edit-form";
     }
 
-
     @PostMapping("/update")
     public String updateAttraction(@ModelAttribute TouristAttraction attraction,
                                    @RequestParam(required = false) List<Integer> tagIDs) {
@@ -156,12 +132,9 @@ public class TouristController {
         return "redirect:/adminpage";
     }
 
-
-
     @PostMapping("/delete/{id}")
     public String deleteAttractionByID(@PathVariable int id){
         touristService.deleteAttractionByID(id);
         return "redirect:/adminpage";
     }
-
 }
