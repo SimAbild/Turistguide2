@@ -40,8 +40,8 @@ CREATE TABLE attraction_tags
 INSERT INTO cities (cityID, name)
 VALUES (1, 'Copenhagen');
 
-INSERT INTO attractions (name, description)
-VALUES ( 'Test Attraction', 'Description text');
+INSERT INTO attractions (name, description, cityID)
+VALUES ( 'Test Attraction', 'Description text',1);
 
 INSERT INTO tags (tagID, name)
 VALUES (1, 'fun');
