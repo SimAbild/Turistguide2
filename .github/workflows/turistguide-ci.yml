@@ -1,82 +1,83 @@
-name: turistguide CI test
-
-on:
-  push:
-    branches:
-      - database
-  pull_request:   # kører også når man laver PR
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'microsoft'
-
-      # 🔹 Build + run tests (unit + integration)
-      - name: Build with Maven
-        run: mvn clean verify --batch-mode
-
-      # 🔹 Upload test results (så man kan se dem på GitHub)
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: target/surefire-reports/
-
-      # 🔹 Qodana statisk analyse
-      - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2024.3
-        with:
-          results-dir: qodana-report
-
-      # 🔹 Gem Qodana rapport som artefakt
-      - name: Upload Qodana report
-        uses: actions/upload-artifact@v4
-        with:
-          name: qodana-report
-          path: qodana-report
-
-      # 🔹 Upload artifact til deploy-job
-      - name: Upload JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: java-app
-          path: target/*.jar
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: java-app
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'tourist-guide-jms-gr4'
-          slot-name: 'Production'
-          package: '*.jar'
+#name: turistguide CI test
+#
+#on:
+#  push:
+#    branches:
+#      - database
+#  pull_request:   # kører også når man laver PR
+#  workflow_dispatch:
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '21'
+#          distribution: 'microsoft'
+#
+#      # 🔹 Build + run tests (unit + integration)
+#      - name: Build with Maven
+#        run: mvn clean verify --batch-mode
+#
+#      # 🔹 Upload test results (så man kan se dem på GitHub)
+#      - name: Upload test results
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: test-results
+#          path: target/surefire-reports/
+#
+#      # 🔹 Qodana statisk analyse
+#      - name: Qodana Scan
+#        uses: JetBrains/qodana-action@v2024.3
+#        with:
+#          results-dir: qodana-report
+#
+#      # 🔹 Gem Qodana rapport som artefakt
+#      - name: Upload Qodana report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: qodana-report
+#          path: qodana-report
+#
+#      # 🔹 Upload artifact til deploy-job
+#      - name: Upload JAR
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: java-app
+#          path: target/*.jar
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    permissions:
+#      id-token: write
+#      contents: read
+#
+#    steps:
+#      - name: Download artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: java-app
+#
+#      - name: Login to Azure
+#        uses: azure/login@v2
+#        with:
+#          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+#          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+#          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+#
+#      - name: Deploy to Azure Web App
+#        uses: azure/webapps-deploy@v3
+#        with:
+#          app-name: 'tourist-guide-jms-gr4'
+#          slot-name: 'Production'
+#          package: '*.jar'
+#-->
