@@ -4,8 +4,6 @@ import com.simon.turistguide2.model.City;
 import com.simon.turistguide2.model.Tag;
 import com.simon.turistguide2.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
