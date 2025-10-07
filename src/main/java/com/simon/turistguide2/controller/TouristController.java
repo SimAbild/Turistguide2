@@ -53,6 +53,7 @@ public class TouristController {
         return "attractionList";
     }
 
+
     //viser admin siden med alle attraktioner og funktioner
     @GetMapping("/adminpage")
     public String getAdminPage(Model model) {
