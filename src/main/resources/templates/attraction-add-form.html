@@ -27,7 +27,7 @@
 
     <label>City:</label>
     <label>
-        <select th:field="*{cityID}">
+        <select th:field="*{cityID}" required>
             <option value="">--Please select--</option>
             <option th:each="city : ${allCities}"
                     th:value="${city.cityID}"
@@ -47,9 +47,7 @@
     <br><br>
 
     <button type="submit">Save</button>
-
-            <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
-
+    <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
 </form>
 </body>
 </html>

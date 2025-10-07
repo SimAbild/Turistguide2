@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit attraction</title>
-    <link th:href="@{/css/add.css}" rel="stylesheet">
+    <link th:href="@{/css/edit.css}" rel="stylesheet">
     <link rel="icon" type="image/webp" th:href="@{/images/flag.webp}">
 </head>
 <body>
@@ -13,32 +13,45 @@
     <input type="hidden" th:field="*{attractionID}"/>
 
     <label>Name:</label>
-    <input type="text" th:field="*{name}" readonly/>
+    <label>
+        <input type="text" th:field="*{name}" readonly/>
+    </label>
+
+    <br><br>
 
     <label>Description:</label>
-    <input type="text" th:field="*{description}"/>
+    <label>
+        <input type="text" th:field="*{description}"/>
+    </label>
+
+    <br><br>
 
     <label>City:</label>
-    <select th:field="*{cityID}">
-        <option th:each="city : ${allCities}"
-                th:value="${city.cityID}"
-                th:text="${city.name}">
-        </option>
-    </select>
+    <label>
+        <select th:field="*{cityID}">
+            <option th:each="city : ${allCities}"
+                    th:value="${city.cityID}"
+                    th:text="${city.name}">
+            </option>
+        </select>
+    </label>
+
+    <br><br><br>
 
     <label>Tags:</label>
-    <div th:each="tag : ${allTags}">
-        <input type="checkbox"
-               name="tagIDs"
-               th:value="${tag.tagID}"
-               th:checked="${selectedTagIDs.contains(tag.tagID)}"/>
-        <span th:text="${tag.name}"></span>
+    <div th:each="tag : ${allTags}" class="checkbox-tags">
+        <label>
+            <input type="checkbox"
+                   name="tagIDs"
+                   th:value="${tag.tagID}"
+                   th:checked="${selectedTagIDs.contains(tag.tagID)}"/>
+            <span th:text="${tag.name}"></span>
+        </label>
     </div>
+    <br><br>
 
     <button type="submit">Save</button>
     <button type="button" onclick="window.location.href='/adminpage'">Cancel</button>
 </form>
-
 </body>
 </html>
-
